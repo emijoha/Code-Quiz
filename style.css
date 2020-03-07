@@ -46,3 +46,12 @@ button:hover {
     margin: 0px auto;
     padding: 4px 14px 4px 14px;
 }
+
+/* these classes are called to show or hide divs*/
+.hidden {
+    display: none;
+}
+
+.shown {
+    display: block;
+}

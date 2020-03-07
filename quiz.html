@@ -25,35 +25,39 @@
 
         <div id="content-box" class="row justify-content-center mt-5">
 
-            <div id="question-box" class="col-md-6">
+            <!-- Hidden by default, hidden class can be removed and shown class added.  -->
+            <!-- textContent added and changed dynamically with script.js -->
+            <div id="question-box" class="col-md-6 hidden">
 
-                <!-- <h2 id="question-prompt" class="question-heading">
-                    What is the answer to this question?
-                </h2> -->
+                <h2 id="question-prompt" class="question-heading">
+                <!-- quizQuestions[i].question -->
+                </h2>
 
-                <!-- <button id="answer-prompt" class="d-block">
-                    X. Answer
+                <button id="option option-1" class="d-block">
+                <!-- quizQuestions[i].answers[0] -->
                 </button>
 
-                <button id="answer-prompt" class="d-block">
-                    X. Answer
+                <button id="option option-2" class="d-block">
+                <!-- quizQuestions[i].answers[1] -->
                 </button>
 
-                <button id="answer-prompt" class="d-block">
-                    X. Answer
+                <button id="option option-3" class="d-block">
+                <!-- quizQuestions[i].answers[2] -->
                 </button>
 
-                <button id="answer-prompt" class="d-block">
-                    X. Answer
-                </button> -->
-               
-                <div id="result">
-                    <!-- <p class="result-p">
-                        Correct/Wrong
-                    </p> -->
-                </div>
-                
+                <button id="option option-4" class="d-block">
+                <!-- quizQuestions[i].answers[3] -->
+                </button>
+
+            </div>   
+
+            <div id="result-box">
+                <p class="result-p hidden">
+                <!-- validate: if quizQuestions[i].correct = quizQuestion[i].answer[index of selected] then its correct, else wrong -->
+                </p>
             </div>
+                
+           
 
         </div>
 
