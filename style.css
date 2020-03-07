@@ -1,0 +1,48 @@
+#view-highscores {
+    color: rgb(91, 40, 124);
+}
+
+.d-block {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: white;
+    font-size: 18px;
+    background-color: rgb(91, 40, 124);
+    border: solid;
+    border-radius: 10px;
+    padding: 2px 10px 2px 10px;
+}
+
+button:hover {
+    background-color: rgba(90, 40, 124, 0.61);
+}
+
+.result-p {
+    margin-top: 20px;
+    border-top: solid;
+    border-width: 1px;
+    border-color: rgb(170, 170, 170);
+    color: rgb(170, 170, 170);
+    font-size: 21px;
+    font-style: italic;
+}
+
+.question-heading {
+    margin-bottom: 20px;
+}
+
+.start-heading {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.start-p {
+    font-size: 18px;
+    text-align: center;
+}
+
+
+.start-button {
+    margin: 0px auto;
+    padding: 4px 14px 4px 14px;
+}

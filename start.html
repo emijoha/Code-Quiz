@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Start</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <nav id="score-timer-display" class="navbar navbar-expand-sm navbar-light mt-2">
+        <a id="view-highscores" class="navbar-brand ml-3" href="highscores.html"><h5>View Highscores</h5></a>
+        <h5 class="navbar-nav ml-auto mr-3">
+            Time: 
+            <span id="timer" class="ml-1">
+                0
+            </span>
+        </h5>
+    </nav>
+
+    <div class="container">
+
+        <div class="row justify-content-center mt-5">
+
+            <div class="col-md-6">
+
+                <h2 class="start-heading">
+                    Coding Quiz Challenge
+                </h2>
+               
+                <div>
+                    <p class="start-p">
+                        Try to answer the following questions within the time limit. Keep in mind that incorrect answers will penalize you score time by ten seconds!
+                    </p>
+                </div>
+                
+                <br>
+
+                <button id="startButton" class="d-block start-button">START</button>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
