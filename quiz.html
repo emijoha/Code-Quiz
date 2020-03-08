@@ -12,11 +12,13 @@
 <body>
 
     <nav id="score-timer-display" class="navbar navbar-expand-sm navbar-light mt-2">
-        <a id="view-highscores" class="navbar-brand ml-3" href="highscores.html"><h5>View Highscores</h5></a>
+        <a id="view-highscores" class="navbar-brand ml-3" href="highscores.html">
+            <h5>View Highscores</h5>
+        </a>
         <h5 class="navbar-nav ml-auto mr-3">
-            Time: 
+            Time:
             <span id="timer" class="ml-1">
-            75
+                75
             </span>
         </h5>
     </nav>
@@ -27,37 +29,37 @@
 
             <!-- Hidden by default, hidden class can be removed and shown class added.  -->
             <!-- textContent added and changed dynamically with script.js -->
-            <div id="question-box" class="col-md-6 hidden">
+            <div id="question-box" class="col-md-6">
 
-                <h2 id="question-prompt" class="question-heading">
-                <!-- quizQuestions[i].question -->
+                <h2 id="question-display" class="question-heading">
+                    <!-- quizQuestions[i].question -->
                 </h2>
 
-                <button id="option-1" class="d-block">
-                <!-- quizQuestions[i].answers[0] -->
-                </button>
+                <div id="button-wrapper">
 
-                <button id="option-2" class="d-block">
-                <!-- quizQuestions[i].answers[1] -->
-                </button>
+                    <button id="option-1" class="d-block">
+                        <!-- quizQuestions[i].answers[0] -->
+                    </button>
 
-                <button id="option-3" class="d-block">
-                <!-- quizQuestions[i].answers[2] -->
-                </button>
+                    <button id="option-2" class="d-block">
+                        <!-- quizQuestions[i].answers[1] -->
+                    </button>
 
-                <button id="option-4" class="d-block">
-                <!-- quizQuestions[i].answers[3] -->
-                </button>
+                    <button id="option-3" class="d-block">
+                        <!-- quizQuestions[i].answers[2] -->
+                    </button>
 
-            </div>   
+                    <button id="option-4" class="d-block">
+                        <!-- quizQuestions[i].answers[3] -->
+                    </button>
 
-            <div>
+                </div>
+
                 <p id="result-display" class="result-message">
-                <!-- validate: if quizQuestions[i].correct = quizQuestion[i].answer[index of selected] then its correct, else wrong -->
+                    <!-- validate: if quizQuestions[i].correct = quizQuestion[i].answer[index of selected] then its correct, else wrong -->
                 </p>
+
             </div>
-                
-           
 
         </div>
 

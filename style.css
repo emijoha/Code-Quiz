@@ -25,6 +25,7 @@ button:hover {
     color: rgb(170, 170, 170);
     font-size: 21px;
     font-style: italic;
+    display: block;
 }
 
 .question-heading {
