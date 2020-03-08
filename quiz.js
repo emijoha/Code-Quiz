@@ -4,25 +4,25 @@ var quizQuestions = [
     {
         question: "Inside which HTML element do we put the JavaScript?",
         options: ["1. <js>", "2. <script>", "3. <javascript>", "4. <link>"],
-        answer: 1
+        answer: "2. <script>"
     },
 
     {
         question: "Which event occurs when the user clicks on an HTML element?",
         options: ["1. onmouseover", "2. onchange", "3. onmouseclick", "4. onclick"],
-        answer: 3
+        answer: "4. onclick"
     },
 
     {
         question: "Which do you use to display a message in an alert box?",
         options: ["1. msgBox()", "2. alertBox()", "3. msg()", "4. alert()"],
-        answer: 3
+        answer: "4. alert()"
     },
 
     {
         question: "Which operator is used to assign a value to a variable?",
         options: ["1. x", "2. *", "3. =", "4. -"],
-        answer: 2
+        answer: "3. ="
     }
 ];
 
@@ -63,8 +63,9 @@ var startTimer = setInterval(function () {
     }
 }, 1000);
 
-// TO DO: Call renderFirstQuestion function
+// Call renderQuestion function (will render just for index of 0, there rest will render after button click if conditionals met and with eacj increasing index
 // ____________________________________________________________________________________________
+renderQuestion();
 
 // Event Listener and validation (wrong or correct message display)
 // TO DO: renderNextQuestion will be worked into this function
@@ -79,7 +80,7 @@ optionButtonsDiv.addEventListener("click", function (event) {
     }
     // Testing Validation: the textContent of the button clicked should equal quizQuestions[currentQuestionIndex].options[answer] to display "correct", all else display "wrong"
     // TO DO: figure out how to reference "answer" with currentQuestions number
-    else if (event.target.textContent == "1. This") {
+    else if (event.target.textContent === quizQuestions[currentQuestionIndex].answer) {
         displayResult("Correct!");
         // if quiz in not over:
         if (quizOver === false) {
@@ -87,7 +88,7 @@ optionButtonsDiv.addEventListener("click", function (event) {
             // And render next question if it has not reached end of quiz questions array
             if (currentQuestionIndex <= totalQuestions) {
                 currentQuestionIndex++;
-                // TO DO: call renderNextQuestion function
+                renderQuestion();
             }
             // set quizOver to TRUE becasue it ran out of questions, quizDone function called
             else {
@@ -114,7 +115,7 @@ optionButtonsDiv.addEventListener("click", function (event) {
             // And render next question if it has not reached end of quiz questions array
             if (currentQuestionIndex <= totalQuestions) {
                 currentQuestionIndex++;
-                // TO DO: call renderNextQuestion function
+                renderQuestion();
             }
             // set quizOver to TRUE becasue it ran out of questions, quizDone function called
             else {
@@ -144,16 +145,20 @@ function displayResult(message) {
     }, 250);
 };
 
+// TO DO: DEFINE renderQuestion function
+// ____________________________________________________________________________________________
+function renderQuestion() {
+    questionDisplay. textContent = quizQuestions[currentQuestionIndex].question;
+    
+    for (var i = 0; i < quizQuestions[currentQuestionIndex].options.length; i++) {
+        var optionText = quizQuestions[currentQuestionIndex].options[i];
+        allOptions[i].textContent = optionText;
+    }
+};
+
 // TO DO: DEFINE quizDone function for removing quiz elements, rendering "All done!" message, defining and displaying var scoreTime, and generating label and input for player initials with submit button.
-// Include event listener on submit button that locally stores initals, secondsLeft (timeScore) in var player oject (JSON here or on highscore.js???). Then loads highscores.html.
+// Include event listener on initials submit button that locally stores initals, secondsLeft (timeScore) in var player oject (JSON here or on highscore.js???). Then loads highscores.html.
 // ____________________________________________________________________________________________
-
-// TO DO: DEFINE renderFirstQuestion function
-// ____________________________________________________________________________________________
-
-// TO DO: DEFINE renderNextQuestion function
-// ____________________________________________________________________________________________
-
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -165,9 +170,9 @@ function displayResult(message) {
 //// RESOLVED: Was able to achieve this using a for loop and the allOptions node list array instead of targeting individual buttons
 // Testing that textContent will successfully change, and is targeted where desired
 //____________________________________________________________________________________________
-questionDisplay.textContent = "Will this display a question?";
-optionOne.textContent = "1. This";
-optionTwo.textContent = "2. That";
-optionThree.textContent = "3. Here";
-optionFour.textContent = "4. There";
-resultDisplay.textContent = "";
+// questionDisplay.textContent = "Inside which HTML element do we put the JavaScript?";
+// optionOne.textContent = quizQuestions[0].options[0];
+// optionTwo.textContent = quizQuestions[0].options[1];
+// optionThree.textContent = quizQuestions[0].options[2];
+// optionFour.textContent = quizQuestions[0].options[3];
+
