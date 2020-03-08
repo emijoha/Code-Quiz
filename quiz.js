@@ -30,7 +30,8 @@ var quizQuestions = [
 // ____________________________________________________________________________________________
 var currentQuestion = 0;
 var secondsLeft = 75;
-// var quizOver = false; not sure when or if needed
+var quizOver = false; 
+var scoreTime;
 
 // Grab elements from quiz.html
 // ____________________________________________________________________________________________
@@ -48,50 +49,65 @@ var optionFour = document.getElementById("option-4");
 // theres is no "submit", the click event on ANY of these buttons acts like a submit 
 var resultDisplay = document.getElementById("result-display");
 
+// TO DO: Call renderFirstQuestion function
+// ____________________________________________________________________________________________
+
 // start timer ***WORKS BUT TAKES A WHILE AT BEGINNING TO COUNT DOWN THE FIRST SECOND***
 // ____________________________________________________________________________________________
 var startTimer = setInterval(function() {
+
     if (secondsLeft <= 0) {
         clearInterval(startTimer);
-        // quizOver = true; 
+        quizOver = true; 
     } 
     else {
     secondsLeft --;
     timeDisplay.innerText = secondsLeft;
-    }
-    
+    quizOver = false;
+    } 
 }, 1000);
 
 // Event Listener and validation (wrong or correct message display)
-// Eventually, rendering next questions will be worked into this function
+// TO DO: renderNextQuestion will be worked into this function
 //____________________________________________________________________________________________
 // add the event listener to the div containing the option buttons
 optionButtonsDiv.addEventListener("click", function(event) {
-
     // target isButton if its nodeName is BUTTON, so that clicking the surrounding div does not trigger event function
     var isButton = event.target.nodeName === "BUTTON";
-    
     // when target is not button, function does nothing
     if (!isButton) {
         return;
     }
-
     // Testing Validation: the textContent of the button clicked should equal quizQuestions[i].options[answer] to display "correct", all else display "wrong"
     else if (event.target.textContent == "1. This") {
         displayResult("Correct!");
+        if (quizOver === false) {
+         // TO DO: call renderNextQuestion function
+        }
+        // if quizOver TRUE, does not render next question, final time displayed, result message cleared
+        else {
+            timeDisplay.innerText = secondsLeft;
+            displayResult("");
+        }
     }
-
-    // SOLVED: When button clicked does not match answer, 10 seconds successfully deducted from timerscore (secondsLeft)
-    else if (event.target.textContent != "1. This") {
+    // When button clicked does not match answer, 10 seconds deducted, but only if quiz if over. This solved bug where after timer stopped counting down, additional clicks kept subracting 10 seconds and unpadting the time display.
+    else {
         displayResult("Wrong!");
-        // BUG: When secondsLeft <=0 , time stops counting down, but time display can keep changing by -10 with adddition button clicks, will probably be solved by ending quiz after secondsLeft < 0 or quizOver = true
+        // Only subtract time if quizOver FALSE
+        if (quizOver === false) {
         secondsLeft = secondsLeft - 10;
         timeDisplay.innerText = secondsLeft;
+        // TO DO: call renderNextQuestion function
+        }
+        // if quizOver TRUE: no subtraction, final time displayed, result message cleared
+        else {
+        timeDisplay.innerText = secondsLeft;
+        displayResult("");
+        }
     }
-    
 });
 
-// Function for displaying result message and timing it to resert to blank after 500 milisecs
+// DEFINE Function for displaying result message and removing it after 250 milisecs
 //____________________________________________________________________________________________
 function displayResult(message) {
     resultDisplay.textContent = message;
@@ -101,12 +117,20 @@ function displayResult(message) {
     }, 250);
 };
 
+// TO DO: DEFINE quizDone function for removing quiz elements, rendering "All done!" message, displaying score time, and generating label and input for player initials with submit button.
+// ____________________________________________________________________________________________
 
-// Following step: include in click event the function/code for rendering the next question
+// TO DO: DEFINE renderFirstQuestion function
+// ____________________________________________________________________________________________
+
+// TO DO: DEFINE renderNextQuestion function
+// ____________________________________________________________________________________________
 
 
-// PAST PSEUDOCODE / PAST TESTING
+
 //____________________________________________________________________________________________
+//
+//  PAST PSEUDOCODE / PAST TESTING
 //____________________________________________________________________________________________
 
 
