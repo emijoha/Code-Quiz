@@ -29,8 +29,9 @@ var quizQuestions = [
 //  Global variables
 // ____________________________________________________________________________________________
 var currentQuestionIndex = 0;
+var totalQuestions = parseInt(quizQuestions.length) - 1;
 var secondsLeft = 75;
-var quizOver = false; 
+var quizOver = false;
 var scoreTime;
 
 // Grab elements from quiz.html
@@ -49,17 +50,17 @@ var resultDisplay = document.getElementById("result-display");
 
 // Start Timer ***BUG: WORKS BUT TAKES A WHILE AT BEGINNING TO COUNT DOWN THE FIRST SECOND***
 // ____________________________________________________________________________________________
-var startTimer = setInterval(function() {
+var startTimer = setInterval(function () {
 
     if (secondsLeft <= 0) {
         clearInterval(startTimer);
-        quizOver = true; 
-    } 
+        quizOver = true;
+    }
     else {
-    secondsLeft --;
-    timeDisplay.innerText = secondsLeft;
-    quizOver = false;
-    } 
+        secondsLeft--;
+        timeDisplay.innerText = secondsLeft;
+        quizOver = false;
+    }
 }, 1000);
 
 // TO DO: Call renderFirstQuestion function
@@ -69,21 +70,33 @@ var startTimer = setInterval(function() {
 // TO DO: renderNextQuestion will be worked into this function
 //____________________________________________________________________________________________
 // add the event listener to the div containing the option buttons
-optionButtonsDiv.addEventListener("click", function(event) {
+optionButtonsDiv.addEventListener("click", function (event) {
     // target isButton if its nodeName is BUTTON, so that clicking the surrounding div does not trigger event function
     var isButton = event.target.nodeName === "BUTTON";
     // when target is not button, function does nothing
     if (!isButton) {
         return;
     }
-    // Testing Validation: the textContent of the button clicked should equal quizQuestions[i].options[answer] to display "correct", all else display "wrong"
-    // TO DO: figure out how to reference "correct option button text" with currentQuestions number
+    // Testing Validation: the textContent of the button clicked should equal quizQuestions[currentQuestionIndex].options[answer] to display "correct", all else display "wrong"
+    // TO DO: figure out how to reference "answer" with currentQuestions number
     else if (event.target.textContent == "1. This") {
         displayResult("Correct!");
+        // if quiz in not over:
         if (quizOver === false) {
-         // TO DO: call renderNextQuestion function
+            
+            // And render next question if it has not reached end of quiz questions array
+            if (currentQuestionIndex <= totalQuestions) {
+                currentQuestionIndex++;
+                // TO DO: call renderNextQuestion function
+            }
+            // set quizOver to TRUE becasue it ran out of questions, quizDone function called
+            else {
+                quizOver = true;
+                timeDisplay.innertext = secondsLeft;
+                // call quizDone function
+            }
         }
-        // if quizOver TRUE, does not render next question, final time displayed, result message cleared
+        // if quizOver TRUE because global secondsLeft < 0, next question is not rendered quizDone function called
         else {
             timeDisplay.innerText = secondsLeft;
             resultDisplay.classList.add("hidden");
@@ -95,15 +108,26 @@ optionButtonsDiv.addEventListener("click", function(event) {
         displayResult("Wrong!");
         // Only subtract time if quizOver FALSE
         if (quizOver === false) {
-        secondsLeft = secondsLeft - 10;
-        timeDisplay.innerText = secondsLeft;
-        // TO DO: call renderNextQuestion function
+            secondsLeft = secondsLeft - 10;
+            timeDisplay.innerText = secondsLeft;
+            
+            // And render next question if it has not reached end of quiz questions array
+            if (currentQuestionIndex <= totalQuestions) {
+                currentQuestionIndex++;
+                // TO DO: call renderNextQuestion function
+            }
+            // set quizOver to TRUE becasue it ran out of questions, quizDone function called
+            else {
+                quizOver = true;
+                timeDisplay.innertext = secondsLeft;
+                // call quizDone function
+            }
         }
-        // if quizOver TRUE: no subtraction, final time displayed, result message cleared
+        // if quizOver TRUE because global secondsLeft < 0, no subtraction, next question is not rendered, quizDone function called
         else {
-        timeDisplay.innerText = secondsLeft;
-        resultDisplay.classList.add("hidden");
-        // TO DO: call quizDone function
+            timeDisplay.innerText = secondsLeft;
+            resultDisplay.classList.add("hidden");
+            // TO DO: call quizDone function
         }
     }
 });
@@ -114,7 +138,7 @@ function displayResult(message) {
     resultDisplay.textContent = message;
     resultDisplay.classList.remove("hidden");
 
-    setTimeout(function() {
+    setTimeout(function () {
         resultDisplay.textContent = "";
         resultDisplay.classList.add("hidden");
     }, 250);
