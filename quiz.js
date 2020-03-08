@@ -88,6 +88,7 @@ optionButtonsDiv.addEventListener("click", function(event) {
         else {
             timeDisplay.innerText = secondsLeft;
             displayResult("");
+            // TO DO: call quizDone function
         }
     }
     // When button clicked does not match answer, 10 seconds deducted, but only if quiz if over. This solved bug where after timer stopped counting down, additional clicks kept subracting 10 seconds and unpadting the time display.
@@ -103,6 +104,7 @@ optionButtonsDiv.addEventListener("click", function(event) {
         else {
         timeDisplay.innerText = secondsLeft;
         displayResult("");
+        // call quizDone function
         }
     }
 });
@@ -118,6 +120,7 @@ function displayResult(message) {
 };
 
 // TO DO: DEFINE quizDone function for removing quiz elements, rendering "All done!" message, displaying score time, and generating label and input for player initials with submit button.
+// Include event listener on submit button that locally stores initals, secondsLeft (timeScore) in var player oject (JSON here or on highscore.js???). Then loads highscores.html.
 // ____________________________________________________________________________________________
 
 // TO DO: DEFINE renderFirstQuestion function
