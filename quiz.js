@@ -44,11 +44,16 @@ var optionFour = document.getElementById("option-4");
 // theres is no "submit", the click event on ANY of these buttons acts like a submit 
 var resultDisplay = document.getElementById("result-display");
 
+// start timer. ***WORKS BUT TAKES A WHILE AT BEGINNING TO COUNT DOWN THE FIRST SECOND***
+var startTimer = setInterval(function() {
+    if (secondsLeft < 0) {
+        clearInterval(startTimer);
+    } 
+    else {
+    timeDisplay.innerText = secondsLeft;
+    }
+    secondsLeft --;
+}, 1000);
 
-// function for main quiz.html page
-// $(document).ready( function() {
 
-    
-
-// })
 
