@@ -28,7 +28,7 @@ var quizQuestions = [
 
 //  Global variables
 // ____________________________________________________________________________________________
-var currentQuestion = 0;
+var currentQuestionIndex = 0;
 var secondsLeft = 75;
 var quizOver = false; 
 var scoreTime;
@@ -39,20 +39,15 @@ var timeDisplay = document.getElementById("timer");
 var quizDisplay = document.getElementById("question-box");
 var questionDisplay = document.getElementById("question-display");
 var optionButtonsDiv = document.getElementById("button-wrapper");
-// Below, querySelectorAll creates Node list array of the buttons in the order they are in html.
+// Below, querySelectorAll creates Node list array of the buttons in their html order
 var allOptions = document.querySelectorAll("button");
 var optionOne = document.getElementById("option-1");
 var optionTwo = document.getElementById("option-2");
 var optionThree = document.getElementById("option-3");
 var optionFour = document.getElementById("option-4");
-// Eventually, when any of the buttons above are clicked, answer validates, result message displayed (for 500? milisecs), and next question rendered
-// theres is no "submit", the click event on ANY of these buttons acts like a submit 
 var resultDisplay = document.getElementById("result-display");
 
-// TO DO: Call renderFirstQuestion function
-// ____________________________________________________________________________________________
-
-// start timer ***WORKS BUT TAKES A WHILE AT BEGINNING TO COUNT DOWN THE FIRST SECOND***
+// Start Timer ***BUG: WORKS BUT TAKES A WHILE AT BEGINNING TO COUNT DOWN THE FIRST SECOND***
 // ____________________________________________________________________________________________
 var startTimer = setInterval(function() {
 
@@ -67,6 +62,9 @@ var startTimer = setInterval(function() {
     } 
 }, 1000);
 
+// TO DO: Call renderFirstQuestion function
+// ____________________________________________________________________________________________
+
 // Event Listener and validation (wrong or correct message display)
 // TO DO: renderNextQuestion will be worked into this function
 //____________________________________________________________________________________________
@@ -79,6 +77,7 @@ optionButtonsDiv.addEventListener("click", function(event) {
         return;
     }
     // Testing Validation: the textContent of the button clicked should equal quizQuestions[i].options[answer] to display "correct", all else display "wrong"
+    // TO DO: figure out how to reference "correct option button text" with currentQuestions number
     else if (event.target.textContent == "1. This") {
         displayResult("Correct!");
         if (quizOver === false) {
@@ -87,7 +86,7 @@ optionButtonsDiv.addEventListener("click", function(event) {
         // if quizOver TRUE, does not render next question, final time displayed, result message cleared
         else {
             timeDisplay.innerText = secondsLeft;
-            displayResult("");
+            resultDisplay.classList.add("hidden");
             // TO DO: call quizDone function
         }
     }
@@ -103,8 +102,8 @@ optionButtonsDiv.addEventListener("click", function(event) {
         // if quizOver TRUE: no subtraction, final time displayed, result message cleared
         else {
         timeDisplay.innerText = secondsLeft;
-        displayResult("");
-        // call quizDone function
+        resultDisplay.classList.add("hidden");
+        // TO DO: call quizDone function
         }
     }
 });
@@ -113,13 +112,15 @@ optionButtonsDiv.addEventListener("click", function(event) {
 //____________________________________________________________________________________________
 function displayResult(message) {
     resultDisplay.textContent = message;
+    resultDisplay.classList.remove("hidden");
 
     setTimeout(function() {
         resultDisplay.textContent = "";
+        resultDisplay.classList.add("hidden");
     }, 250);
 };
 
-// TO DO: DEFINE quizDone function for removing quiz elements, rendering "All done!" message, displaying score time, and generating label and input for player initials with submit button.
+// TO DO: DEFINE quizDone function for removing quiz elements, rendering "All done!" message, defining and displaying var scoreTime, and generating label and input for player initials with submit button.
 // Include event listener on submit button that locally stores initals, secondsLeft (timeScore) in var player oject (JSON here or on highscore.js???). Then loads highscores.html.
 // ____________________________________________________________________________________________
 
@@ -131,10 +132,10 @@ function displayResult(message) {
 
 
 
-//____________________________________________________________________________________________
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
 //  PAST PSEUDOCODE / PAST TESTING
-//____________________________________________________________________________________________
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 //// RESOLVED: Was able to achieve this using a for loop and the allOptions node list array instead of targeting individual buttons
