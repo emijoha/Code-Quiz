@@ -29,7 +29,7 @@ var quizQuestions = [
 //  Global variables
 // ____________________________________________________________________________________________
 var currentQuestionIndex = 0;
-var totalQuestions = parseInt(quizQuestions.length) - 1;
+var totalQuestions = quizQuestions.length;
 var secondsLeft = 75;
 var quizOver = false;
 var scoreTime;
@@ -48,21 +48,6 @@ var optionThree = document.getElementById("option-3");
 var optionFour = document.getElementById("option-4");
 var resultDisplay = document.getElementById("result-display");
 
-// Start Timer ***BUG: WORKS BUT TAKES A WHILE AT BEGINNING TO COUNT DOWN THE FIRST SECOND***
-// ____________________________________________________________________________________________
-var startTimer = setInterval(function () {
-
-    if (secondsLeft <= 0) {
-        clearInterval(startTimer);
-        quizOver = true;
-    }
-    else {
-        secondsLeft--;
-        timeDisplay.innerText = secondsLeft;
-        quizOver = false;
-    }
-}, 1000);
-
 // Call renderQuestion function (will render just for index of 0, there rest will render after button click if conditionals met and with eacj increasing index
 // ____________________________________________________________________________________________
 renderQuestion();
@@ -79,59 +64,47 @@ optionButtonsDiv.addEventListener("click", function (event) {
         return;
     }
     // Testing Validation: the textContent of the button clicked should equal quizQuestions[currentQuestionIndex].options[answer] to display "correct", all else display "wrong"
-    // TO DO: figure out how to reference "answer" with currentQuestions number
     else if (event.target.textContent === quizQuestions[currentQuestionIndex].answer) {
         displayResult("Correct!");
-        // if quiz in not over:
-        if (quizOver === false) {
-            
-            // And render next question if it has not reached end of quiz questions array
-            if (currentQuestionIndex <= totalQuestions) {
-                currentQuestionIndex++;
-                renderQuestion();
-            }
-            // set quizOver to TRUE becasue it ran out of questions, quizDone function called
-            else {
-                quizOver = true;
-                timeDisplay.innertext = secondsLeft;
-                // call quizDone function
-            }
+        currentQuestionIndex ++;
+        if (currentQuestionIndex < totalQuestions) {
+            renderQuestion();
         }
-        // if quizOver TRUE because global secondsLeft < 0, next question is not rendered quizDone function called
         else {
-            timeDisplay.innerText = secondsLeft;
-            resultDisplay.classList.add("hidden");
-            // TO DO: call quizDone function
+            quizOver = true;
         }
     }
     // When button clicked does not match answer, 10 seconds deducted, but only if quiz if over. This solved bug where after timer stopped counting down, additional clicks kept subracting 10 seconds and unpadting the time display.
     else {
         displayResult("Wrong!");
-        // Only subtract time if quizOver FALSE
-        if (quizOver === false) {
-            secondsLeft = secondsLeft - 10;
-            timeDisplay.innerText = secondsLeft;
-            
-            // And render next question if it has not reached end of quiz questions array
-            if (currentQuestionIndex <= totalQuestions) {
-                currentQuestionIndex++;
-                renderQuestion();
-            }
-            // set quizOver to TRUE becasue it ran out of questions, quizDone function called
-            else {
-                quizOver = true;
-                timeDisplay.innertext = secondsLeft;
-                // call quizDone function
-            }
+        secondsLeft = secondsLeft - 10;
+        timeDisplay.innerText = secondsLeft;
+        currentQuestionIndex ++; 
+        if (currentQuestionIndex < totalQuestions) {
+            renderQuestion();
         }
-        // if quizOver TRUE because global secondsLeft < 0, no subtraction, next question is not rendered, quizDone function called
         else {
-            timeDisplay.innerText = secondsLeft;
-            resultDisplay.classList.add("hidden");
-            // TO DO: call quizDone function
-        }
+            quizOver = true;
+        }  
     }
 });
+
+// Start Timer 
+// ***BUG: WORKS BUT TAKES A WHILE AT BEGINNING TO COUNT DOWN THE FIRST SECOND***
+// ***BUG: Timer does not STOP when quiz questions are exhausted, only if time <= 0
+// ____________________________________________________________________________________________
+var startTimer = setInterval(function () {
+
+    if (secondsLeft <= 0) {
+        clearInterval(startTimer);
+        timeDisplay.innerText = secondsLeft;
+    }
+
+    else {
+        secondsLeft--;
+        timeDisplay.innerText = secondsLeft;
+    }
+}, 1000);
 
 // DEFINE Function for displaying result message and removing it after 250 milisecs
 //____________________________________________________________________________________________
@@ -148,11 +121,12 @@ function displayResult(message) {
 // TO DO: DEFINE renderQuestion function
 // ____________________________________________________________________________________________
 function renderQuestion() {
-    questionDisplay. textContent = quizQuestions[currentQuestionIndex].question;
-    
-    for (var i = 0; i < quizQuestions[currentQuestionIndex].options.length; i++) {
-        var optionText = quizQuestions[currentQuestionIndex].options[i];
-        allOptions[i].textContent = optionText;
+    if (currentQuestionIndex < totalQuestions) {
+        questionDisplay. textContent = quizQuestions[currentQuestionIndex].question;
+        for (var i = 0; i < quizQuestions[currentQuestionIndex].options.length; i++) {
+            var optionText = quizQuestions[currentQuestionIndex].options[i];
+            allOptions[i].textContent = optionText;
+        }    
     }
 };
 
