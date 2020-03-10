@@ -35,6 +35,7 @@ button:hover {
 .start-heading {
     margin-bottom: 20px;
     text-align: center;
+    font-size: 40px;
 }
 
 .start-p {
@@ -62,6 +63,16 @@ button:hover {
     border: solid;
     border-radius: 10px;
     padding: 3px 12px 3px 12px;
+}
+
+.player-score-display {
+    color: white;
+    background-color: rgba(90, 40, 124, 0.726);
+    font-size: 22px;
+}
+
+.highscore-p {
+    padding: 6px 20px 6px 20px; 
 }
 
 /* becasue only the text of the buttons is changing (not whole element), previous answer stays selected when new question rendered. */

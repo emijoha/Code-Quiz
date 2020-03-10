@@ -48,47 +48,49 @@ var timeScoreDisplay = document.getElementById("score-display");
 var playerInitials = document.getElementById("initials-input");
 var submitInitialsButton = document.getElementById("submit-button");
 
-// Call renderQuestion function (will render just for index of 0, there rest will render after button click if conditionals met and with eacj increasing index
+// Call renderQuestion function (will render just for index of 0, the rest will render after button click (if conditionals)
 // ____________________________________________________________________________________________
 renderQuestion();
 
-// Event Listener and validation (wrong or correct message display)
-// TO DO: renderNextQuestion will be worked into this function
+// Event Listener for div containing buttons
 //____________________________________________________________________________________________
-// add the event listener to the div containing the option buttons
 optionButtonsDiv.addEventListener("click", function (event) {
     // target isButton if its nodeName is BUTTON, so that clicking the surrounding div does not trigger event function
     var isButton = event.target.nodeName === "BUTTON";
-    // when target is not button, function does nothing
+
     if (!isButton) {
         return;
     }
-    // Checking Answer: the textContent of the button clicked should equal quizQuestions[currentQuestionIndex].answer
+
     else if (event.target.textContent === quizQuestions[currentQuestionIndex].answer) {
         displayResult("Correct!");
-        // will only render next question if questions list is not exhausted
+      
         if (currentQuestionIndex < totalQuestions) {
             currentQuestionIndex ++;
             renderQuestion();
         }
+
         else {
             return;
         }
     }
-    // When button clicked does not match answer, 10 seconds deducted and time displayed updated. 
+
     else {
         displayResult("Wrong!");
         secondsLeft = secondsLeft - 10;
         timeDisplay.innerText = secondsLeft;
-        //  next questions rendered is questions list is not exhausted
+
         if (currentQuestionIndex < totalQuestions) {
             currentQuestionIndex ++;
             renderQuestion();
         }
+
         else {
             return;
         }  
+
     }
+
 });
 
 // Start Timer 
@@ -126,6 +128,7 @@ function displayResult(message) {
         resultDisplay.textContent = "";
         resultDisplay.classList.add("hidden");
     }, 500);
+
 };
 
 // DEFINE renderQuestion function
@@ -133,14 +136,17 @@ function displayResult(message) {
 function renderQuestion() {
     if (currentQuestionIndex < totalQuestions) {
         questionDisplay. textContent = quizQuestions[currentQuestionIndex].question;
+
         for (var i = 0; i < quizQuestions[currentQuestionIndex].options.length; i++) {
             var optionText = quizQuestions[currentQuestionIndex].options[i];
             allOptions[i].textContent = optionText;
         }    
+
     }
+    
 };
 
-// DEFINE quizDone function for removing quiz elements, rendering "All done!" message, defining and displaying var scoreTime, and generating label and input for player initials with submit button.
+// DEFINE quizDone function for removing quiz elements, rendering "All done!" page with player initials input
 // ____________________________________________________________________________________________
 function allDone() {
     
@@ -149,12 +155,11 @@ function allDone() {
         optionButtonsDiv.setAttribute("class", "hidden");
         playerInitialsDiv.classList.remove("hidden");
         timeScoreDisplay.textContent = "Your final score is " + secondsLeft + ".";
-    }, 500);
+    }, 200);
 
 };
 
 // Click event for player initials submit button
-// locally store initals, secondsLeft (timeScore) in var player oject (JSON here or on highscore.js???). Then loads highscores.html.
 // ____________________________________________________________________________________________
 submitInitialsButton.addEventListener("click", function(event) {
     localStorage.setItem("playerScore", playerInitials.value + " - " + secondsLeft);
