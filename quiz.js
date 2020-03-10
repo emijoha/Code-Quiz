@@ -23,6 +23,30 @@ var quizQuestions = [
         question: "Which operator is used to assign a value to a variable?",
         options: ["1. x", "2. *", "3. =", "4. -"],
         answer: "3. ="
+    },
+
+    {
+        question: "What type of data is the following: false",
+        options: ["1. a number value", "2. a boolean", "a string ", "4. undefined"],
+        answer: "2. a boolean"
+    },
+
+    {
+        question: "Is JavaScript case-sensitive?",
+        options: ["1. yes", "2. no", "3. only on Windows", "4. only on Mac"],
+        answer: "1. yes"
+    },
+
+    {
+        question: "Who created JavaScript?",
+        options: ["1. Microsoft", "2. Sun Microsystems", "3. Oracle", "4. Netscape"],
+        answer: "4. Netscape"
+    },
+
+    {
+        question: "How long did it take to write the JavaScript programming language?",
+        options: ["1. 2 weeks", "2. 10 days", "3. 2 months", "4. 10 months"],
+        answer: "2. 10 days"
     }
 ];
 
@@ -143,7 +167,7 @@ function renderQuestion() {
         }    
 
     }
-    
+
 };
 
 // DEFINE quizDone function for removing quiz elements, rendering "All done!" page with player initials input
@@ -162,7 +186,7 @@ function allDone() {
 // Click event for player initials submit button
 // ____________________________________________________________________________________________
 submitInitialsButton.addEventListener("click", function(event) {
-    localStorage.setItem("playerScore", playerInitials.value + " - " + secondsLeft);
+    localStorage.setItem("playerScore", playerInitials.value + ": " + secondsLeft);
     window.location.replace("highscores.html");
 });
 

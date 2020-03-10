@@ -66,9 +66,9 @@ button:hover {
 }
 
 .player-score-display {
-    color: white;
-    background-color: rgba(90, 40, 124, 0.726);
+    background-color: rgba(90, 40, 124, 0.527);
     font-size: 22px;
+    border-radius: 5px;
 }
 
 .highscore-p {
@@ -76,10 +76,9 @@ button:hover {
 }
 
 /* becasue only the text of the buttons is changing (not whole element), previous answer stays selected when new question rendered. */
-/* removed outline and switched to faded purple color as a better aesthetic for keyboard navigators/accessibility */
+/* /* removed outline, sacrificed accessibilty and keyboarding */
 button:focus {
     outline: 0;
-    background-color: rgba(90, 40, 124, 0.61);
 }
 
 
