@@ -9,8 +9,8 @@ var quizQuestions = [
 
     {
         question: "Which event occurs when the user clicks on an HTML element?",
-        options: ["1. onmouseover", "2. onchange", "3. onmouseclick", "4. onclick"],
-        answer: "4. onclick"
+        options: ["1. onclick", "2. onchange", "3. onmouseclick", "4. onmouseover"],
+        answer: "1. onclick"
     },
 
     {
@@ -40,13 +40,13 @@ var timeDisplay = document.getElementById("timer");
 var quizDisplay = document.getElementById("question-box");
 var questionDisplay = document.getElementById("question-display");
 var optionButtonsDiv = document.getElementById("button-wrapper");
-// Below, querySelectorAll creates Node list array of the buttons in their html order
+// Below, querySelectorAll creates Node list array of all buttons in the buttons div
 var allOptions = document.querySelectorAll("button");
-var optionOne = document.getElementById("option-1");
-var optionTwo = document.getElementById("option-2");
-var optionThree = document.getElementById("option-3");
-var optionFour = document.getElementById("option-4");
 var resultDisplay = document.getElementById("result-display");
+var playerInitialsDiv = document.getElementById("initials-input-div");
+var timeScoreDisplay = document.getElementById("score-display");
+var playerInitials = document.getElementById("initials-input");
+var submitInitialsButton = document.getElementById("submit-button");
 
 // Call renderQuestion function (will render just for index of 0, there rest will render after button click if conditionals met and with eacj increasing index
 // ____________________________________________________________________________________________
@@ -80,7 +80,7 @@ optionButtonsDiv.addEventListener("click", function (event) {
         displayResult("Wrong!");
         secondsLeft = secondsLeft - 10;
         timeDisplay.innerText = secondsLeft;
-         
+        //  next questions rendered is questions list is not exhausted
         if (currentQuestionIndex < totalQuestions) {
             currentQuestionIndex ++;
             renderQuestion();
@@ -92,7 +92,6 @@ optionButtonsDiv.addEventListener("click", function (event) {
 });
 
 // Start Timer 
-// ***BUG: WORKS BUT TAKES A WHILE AT BEGINNING TO COUNT DOWN THE FIRST SECOND***
 // ____________________________________________________________________________________________
 var startTimer = setInterval(function () {
 
@@ -100,6 +99,7 @@ var startTimer = setInterval(function () {
         quizOver = true;
         clearInterval(startTimer);
         timeDisplay.innerText = secondsLeft;
+        allDone();
     }
     
     else if (secondsLeft > 0) {
@@ -111,11 +111,12 @@ var startTimer = setInterval(function () {
         quizOver = true;
         clearInterval(startTimer);
         timeDisplay.innerText = secondsLeft;
+        allDone();
     }
 
 }, 1000);
 
-// DEFINE Function for displaying result message and removing it after 250 milisecs
+// DEFINE Function for displaying result message and removing it 500 milisecs
 //____________________________________________________________________________________________
 function displayResult(message) {
     resultDisplay.textContent = message;
@@ -127,7 +128,7 @@ function displayResult(message) {
     }, 500);
 };
 
-// TO DO: DEFINE renderQuestion function
+// DEFINE renderQuestion function
 // ____________________________________________________________________________________________
 function renderQuestion() {
     if (currentQuestionIndex < totalQuestions) {
@@ -139,23 +140,24 @@ function renderQuestion() {
     }
 };
 
-// TO DO: DEFINE quizDone function for removing quiz elements, rendering "All done!" message, defining and displaying var scoreTime, and generating label and input for player initials with submit button.
-// Include event listener on initials submit button that locally stores initals, secondsLeft (timeScore) in var player oject (JSON here or on highscore.js???). Then loads highscores.html.
+// DEFINE quizDone function for removing quiz elements, rendering "All done!" message, defining and displaying var scoreTime, and generating label and input for player initials with submit button.
 // ____________________________________________________________________________________________
+function allDone() {
+    
+    setTimeout(function () {
+        questionDisplay.textContent = "All done!";
+        optionButtonsDiv.setAttribute("class", "hidden");
+        playerInitialsDiv.classList.remove("hidden");
+        timeScoreDisplay.textContent = "Your final score is " + secondsLeft + ".";
+    }, 500);
 
+};
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//  PAST PSEUDOCODE / PAST TESTING
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-//// RESOLVED: Was able to achieve this using a for loop and the allOptions node list array instead of targeting individual buttons
-// Testing that textContent will successfully change, and is targeted where desired
-//____________________________________________________________________________________________
-// questionDisplay.textContent = "Inside which HTML element do we put the JavaScript?";
-// optionOne.textContent = quizQuestions[0].options[0];
-// optionTwo.textContent = quizQuestions[0].options[1];
-// optionThree.textContent = quizQuestions[0].options[2];
-// optionFour.textContent = quizQuestions[0].options[3];
+// Click event for player initials submit button
+// locally store initals, secondsLeft (timeScore) in var player oject (JSON here or on highscore.js???). Then loads highscores.html.
+// ____________________________________________________________________________________________
+submitInitialsButton.addEventListener("click", function(event) {
+    localStorage.setItem("playerScore", playerInitials.value + " - " + secondsLeft);
+    window.location.replace("highscores.html");
+});
 
