@@ -54,7 +54,7 @@ button:hover {
     font-size: 22px;
 }
 
-.submit-button {
+.submit-button, .end-buttons {
     margin-bottom: 5px;
     margin-top: 5px;
     color: white;
@@ -65,23 +65,24 @@ button:hover {
     padding: 3px 12px 3px 12px;
 }
 
-.player-score-display {
+.end-buttons {
+    margin-right: 10px;
+}
+
+.player-score-div {
     background-color: rgba(90, 40, 124, 0.527);
     font-size: 22px;
     border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .highscore-p {
     padding: 6px 20px 6px 20px; 
 }
 
-/* becasue only the text of the buttons is changing (not whole element), previous answer stays selected when new question rendered. */
-/* /* removed outline, sacrificed accessibilty and keyboarding */
 button:focus {
     outline: 0;
 }
-
-
 
 /* this class can be called to show or hide divs*/
 .hidden {
